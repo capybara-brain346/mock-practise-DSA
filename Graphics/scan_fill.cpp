@@ -1,7 +1,8 @@
 #include <iostream>
 #include <graphics.h>
+#include <algorithm>
 #include <vector>
-
+#include <cmath>
 using namespace std;
 
 struct Point {
@@ -18,7 +19,7 @@ void drawPolygon(const vector<Point>& vertices) {
 void scanFill(const vector<Point>& vertices, int fill_color) {
     int minY = INT_MAX, maxY = INT_MIN;
 
-    for (const Point& vertex : vertices) {
+    for (const Point& vertex : vertices) {3
         minY = min(minY, vertex.y);
         maxY = max(maxY, vertex.y);
     }

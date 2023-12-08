@@ -1,0 +1,13 @@
+while True:
+    try:
+        marks = list(map(int,input(":").split(",")))
+        break
+    except ValueError:
+        print("Invalid Input Please Try Again!")
+
+def maxfreq(marks: list[int]) -> int:
+    mark_present = [i for i in marks if i != -1]
+    freq         = [marks.count(j) for j in mark_present]
+    return {mark_present[freq.index(max(freq))]}
+
+maxfreq(marks)
