@@ -1,42 +1,44 @@
 #include <iostream>
 #include <graphics.h>
+#include <cmath>>
 using namespace std;
 
-void dda_line(int x1, int y1, int x2, int y2) {
+void drawLine(int x1, int y1, int x2, int y2) {
     int dx = x2 - x1;
     int dy = y2 - y1;
-    int steps, k;
-    float xIncrement, yIncrement, x = x1, y = y1;
 
-    if (abs(dx) > abs(dy))
-        steps = abs(dx);
-    else
-        steps = abs(dy);
+    int steps = abs(dx) > abs(dy) ? abs(dx) : abs(dy);
 
-    xIncrement = static_cast<float>(dx) / static_cast<float>(steps);
-    yIncrement = static_cast<float>(dy) / static_cast<float>(steps);
+    float xIncrement = dx / (float)steps;
+    float yIncrement = dy / (float)steps;
 
-    for (k = 0; k < steps; k++) {
+    float x = x1;
+    float y = y1;
+
+    for (int i = 0; i <= steps; i++) {
+        putpixel(round(x), round(y), WHITE);
+
         x += xIncrement;
         y += yIncrement;
-        putpixel((x), (y), WHITE);
     }
 }
 
 int main() {
-    initwindow(1000, 800);
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, NULL);
 
     int x1, y1, x2, y2;
 
-    cout << "Enter coordinates of first point (x1 y1): ";
+    cout << "Enter the starting point (x1 y1): ";
     cin >> x1 >> y1;
-
-    cout << "Enter coordinates of second point (x2 y2): ";
+    cout << "Enter the ending point (x2 y2): ";
     cin >> x2 >> y2;
 
-    dda_line(x1, y1, x2, y2);
-    getch();
-    
+    drawLine(x1, y1, x2, y2);
+
+    delay(5000);  // Display the window for 5 seconds before closing
+    closegraph();
+
     return 0;
 }
 

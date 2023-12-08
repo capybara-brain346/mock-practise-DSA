@@ -1,0 +1,49 @@
+#include <iostream>
+#include <graphics.h>
+
+using namespace std;
+
+void drawCircle(int xc, int yc, int radius) {
+    int x = radius;
+    int y = 0;
+    int error = 0;
+
+    while (x >= y) {
+        putpixel(xc + x, yc - y, WHITE);
+        putpixel(xc - x, yc - y, WHITE);
+        putpixel(xc + x, yc + y, WHITE);
+        putpixel(xc - x, yc + y, WHITE);
+        putpixel(xc + y, yc - x, WHITE);
+        putpixel(xc - y, yc - x, WHITE);
+        putpixel(xc + y, yc + x, WHITE);
+        putpixel(xc - y, yc + x, WHITE);
+
+        y += 1;
+        error += 1 + 2 * y;
+
+        if (2 * (error - x) + 1 > 0) {
+            x -= 1;
+            error += 1 - 2 * x;
+        }
+    }
+}
+
+int main() {
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, NULL);
+
+    int xc, yc, radius;
+
+    cout << "Enter the center coordinates (x y): ";
+    cin >> xc >> yc;
+    cout << "Enter the radius of the circle: ";
+    cin >> radius;
+
+    drawCircle(xc, yc, radius);
+
+    delay(5000);  // Display the window for 5 seconds before closing
+    closegraph();
+
+    return 0;
+}
+

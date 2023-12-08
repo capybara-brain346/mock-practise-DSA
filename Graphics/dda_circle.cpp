@@ -1,43 +1,43 @@
 #include <iostream>
 #include <graphics.h>
+#include <cmath>
+
 using namespace std;
 
-void drawCircle(int xc, int yc, int r) {
-    int x = r;
-    int y = 0;
-    int d = 1 - r;
+void drawCircle(int xc, int yc, int radius) {
+    float x, y;
+    float theta;
 
-    while (y <= x) {
-        putpixel(xc + x, yc + y, WHITE);
-        putpixel(xc - x, yc + y, WHITE);
-        putpixel(xc + x, yc - y, WHITE);
-        putpixel(xc - x, yc - y, WHITE);
-        putpixel(xc + y, yc + x, WHITE);
-        putpixel(xc - y, yc + x, WHITE);
-        putpixel(xc + y, yc - x, WHITE);
-        putpixel(xc - y, yc - x, WHITE);
+    for (theta = 0; theta <= 360; theta += 0.1) {
+        // Convert polar coordinates to Cartesian coordinates
+        x = xc + radius * cos(theta);
+        y = yc + radius * sin(theta);
 
-        if (d <= 0) {
-            d += 2 * y + 3;
-        } else {
-            d += 2 * (y - x) + 5;
-            x--;
-        }
-        y++;
+        // Round to the nearest integer for pixel placement
+        int pixelX = round(x);
+        int pixelY = round(y);
+
+        // Plot the pixel
+        putpixel(pixelX, pixelY, WHITE);
     }
 }
 
 int main() {
-    initwindow(1000, 800);
+    int gd = DETECT, gm;
+    initgraph(&gd, &gm, NULL);
 
     int xc, yc, radius;
-    cout<<"Enter Xc, Yc and radius of circle:";
-    cin>>xc>>yc>>radius;
 
-    drawCircle(xc, yc, radius); // Draw the circle
+    cout << "Enter the center coordinates (x y): ";
+    cin >> xc >> yc;
+    cout << "Enter the radius of the circle: ";
+    cin >> radius;
 
-    getch();
-    
+    drawCircle(xc, yc, radius);
+
+    delay(5000);  // Display the window for 5 seconds before closing
+    closegraph();
+
     return 0;
 }
 
