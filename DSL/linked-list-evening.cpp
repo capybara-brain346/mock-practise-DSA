@@ -10,37 +10,53 @@ struct node{
 class member{
     public:
     node *header;
-    node* create(int x);
-    void display(node *head);
-    void add(node *head);
+    node* create();
+    void display(node* head);
+    void add(int x);
 };
 
-node* member::create(int x){
-    int roll;
-    node *head = NULL;
+node* member::create(){
+    node *head;
     node *nn = new node;
-    head = nn;    
-    for(int i = 0; i<x;++i){
+    head = nn;
+
+    for (int i = 0; i<10; ++i){
         nn->next = new node;
         nn = nn->next;
-        printf("Enter Roll Number: ");
-        cin >> nn->data;
+        nn->data = i;
     }
-    nn->next=NULL;
+    nn->next = NULL;
     return head;
 }
 
 void member::display(node *head){
     node *ptr = head;
-    for(int i=0;ptr!=NULL;i++){
-        printf("%d",ptr->data);
+    while(ptr!=NULL){
+        printf("%d \n",ptr->data);
         ptr = ptr->next;
     }
 }
 
-int main(){
+void member::add(int x){
+    node *ptr = header;
+    node *nn = new node;
+    nn->data = x;
+    nn->next=NULL;
+
+    while(ptr->next!=NULL){
+        ptr = ptr->next;
+    }
+    ptr->next = nn;
+    
+}
+
+int main() {
     member m;
-    m.header = m.create(3);
+    m.header = m.create();
+    m.add(69);
     m.display(m.header);
+
+
+    
     return 0;
 }

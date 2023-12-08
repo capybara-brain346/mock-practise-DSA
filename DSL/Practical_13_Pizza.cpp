@@ -1,144 +1,111 @@
 #include<iostream>
-#include<cstdlib>
-using namespace std;
-class pizza
-{
- int front,rear,q[5];
- public:
- pizza()
- {
- front=-1;
- rear=-1;
- }
- int isfull()
- {
 
-if((front==0&&rear==4)||front==rear+1)
- {
- return 1;
- }
-else
-{
- return 0;
- }
- }
- int isempty()
- {
- if(front==-1&&rear==-1)
- {
- return 1;
- }
- else
-{
- return 0;
- }
- }
- void add()
- {
- if(isfull()==0)
- {
- cout<<"\n Enter the Pizza ID: ";
- if(front==-1&&rear==-1)
- {
- front=0;
- rear=0;
- cin>>q[rear];
- }
- else
- {
- rear=(rear+1)%5;
- cin>>q[rear];
- }
- char c;
- cout<<" Do you want to add another order ? ";
- cin>>c;
- if(c=='y'||c=='Y')
- add();
- }
- else
- {
- cout<<"\n Orders are full ";
- }
+class PizzaParlor {
+private:
+    int front, rear, orders[5];
 
- }
- void serve()
- {
- if(isempty()==0)
- {
- if(front==rear)
- {
- cout<<"\n Order served is : "<<q[front];
- front=-1;
- rear=-1;
- }
- else
- {
- cout<<"\n Order served is : "<<q[front];
- front=(front+1)%5;
- }
- }
- else
- {
- cout<<"\n Orders are empty ";
- }
- }
- void display()
- {
- if(isempty()==0)
- {
- for(int
-i=front;i!=rear;i=(i+1)%5)
- {
- cout<<q[i]<<"<- ";
- }
- cout<<q[rear];
- }
- else
- {
- cout<<"\n Orders are empty";
- }
- }
- void check()
- {
- int ch;
-cout<<"\n\n * * * * PIZZA PARLOUR * * * * \n\n";
- cout<<"\n 1. Add a Pizza \n 2. Display the Orders \n 3. Serve a pizza \n 4. Exit \n Enter your choice : ";
- cin>>ch;
-switch(ch)
-{
- case 1:
- add();
-break;
+public:
+    PizzaParlor() : front(-1), rear(-1) {}
 
- case 2:
+    bool isFull() {
+        return (front == 0 && rear == 4) || (front == rear + 1);
+    }
 
-display();
- break;
+    bool isEmpty() {
+        return (front == -1 && rear == -1);
+    }
 
- case 3:
+    void addOrder() {
+        if (!isFull()) {
+            std::cout << "\nEnter the Pizza ID: ";
+            if (isEmpty()) {
+                front = rear = 0;
+                std::cin >> orders[rear];
+            } else {
+                rear = (rear + 1) % 5;
+                std::cin >> orders[rear];
+            }
 
-serve();
- break;
+            char choice;
+            std::cout << "Do you want to add another order? (y/n): ";
+            std::cin >> choice;
 
- case 4:
+            if (choice == 'y' || choice == 'Y') {
+                addOrder();
+            }
+        } else {
+            std::cout << "\nOrders are full.";
+        }
+    }
 
-exit(0);
+    void serveOrder() {
+        if (!isEmpty()) {
+            if (front == rear) {
+                std::cout << "\nOrder served is: " << orders[front];
+                front = rear = -1;
+            } else {
+                std::cout << "\nOrder served is: " << orders[front];
+                front = (front + 1) % 5;
+            }
+        } else {
+            std::cout << "\nOrders are empty.";
+        }
+    }
 
- default:
- cout<<"Invalid choice ";
+    void displayOrders() {
+        if (!isEmpty()) {
+            int i = front;
+            std::cout << "\nCurrent orders: ";
+            do {
+                std::cout << orders[i] << " <- ";
+                i = (i + 1) % 5;
+            } while (i != rear);
 
-check();
- }
-char ch1;
-cout<<"\n Do you want to continue? ";
- cin>>ch1;
- if(ch1=='y'||ch1=='Y')
-check();
- }
+            std::cout << orders[rear];
+        } else {
+            std::cout << "\nOrders are empty.";
+        }
+    }
+
+    void checkMenu() {
+        int choice;
+        std::cout << "\n\n * * * * PIZZA PARLOUR * * * * \n\n";
+        std::cout << "1. Add a Pizza\n";
+        std::cout << "2. Display the Orders\n";
+        std::cout << "3. Serve a Pizza\n";
+        std::cout << "4. Exit\n";
+        std::cout << "Enter your choice: ";
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addOrder();
+                break;
+            case 2:
+                displayOrders();
+                break;
+            case 3:
+                serveOrder();
+                break;
+            case 4:
+                exit(0);
+            default:
+                std::cout << "Invalid choice.";
+        }
+
+        char continueChoice;
+        std::cout << "\nDo you want to continue? (y/n): ";
+        std::cin >> continueChoice;
+
+        if (continueChoice == 'y' || continueChoice == 'Y') {
+            checkMenu();
+        }
+    }
 };
-int main()
-{
- pizza p1;
- p1.check();
- return 0;
+
+int main() {
+    PizzaParlor pizzaParlor;
+    pizzaParlor.checkMenu();
+
+    return 0;
 }
