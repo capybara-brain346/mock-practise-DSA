@@ -1,9 +1,8 @@
-def bubble(list: list[int]) -> list:
-    for i in range(len(list)-1,0,-1):
+def bubble(arr):
+    for i in range(len(arr)-1,0,-1):
         for j in range(i):
-            if list[j]>list[j+1]:
-                list[j],list[j+1]=list[j+1],list[j]
-    
-    return list
+            if arr[j] > arr[j+1]:
+                arr[j],arr[j+1] = arr[j+1],arr[j]
+    return arr
 
 print(bubble([4,3,1,8,6,0,9]))
