@@ -45,25 +45,6 @@ void translateCube(Cube &cube, int dx, int dy, int dz) {
     }
 }
 
-void rotateCube(Cube &cube, float angleX, float angleY, float angleZ) {
-    for (int i = 0; i < 8; ++i) {
-        float tempX = cube.vertices[i].x;
-        float tempY = cube.vertices[i].y;
-        float tempZ = cube.vertices[i].z;
-
-        // Rotation around X-axis
-        cube.vertices[i].y = round(tempY * cos(angleX) - tempZ * sin(angleX));
-        cube.vertices[i].z = round(tempY * sin(angleX) + tempZ * cos(angleX));
-
-        // Rotation around Y-axis
-        cube.vertices[i].x = round(tempX * cos(angleY) + tempZ * sin(angleY));
-        cube.vertices[i].z = round(-tempX * sin(angleY) + tempZ * cos(angleY));
-
-        // Rotation around Z-axis
-        cube.vertices[i].x = round(tempX * cos(angleZ) - tempY * sin(angleZ));
-        cube.vertices[i].y = round(tempX * sin(angleZ) + tempY * cos(angleZ));
-    }
-}
 
 int main() {
     int gd = DETECT, gm;

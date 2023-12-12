@@ -1,76 +1,63 @@
 #include <iostream>
-//#include <graphics.h>
+#include <graphics.h>
 #include <cmath>
 
 using namespace std;
 
-struct Point {
+struct Point2D {
     int x, y;
 };
 
-void drawRectangle(Point p1, Point p2) {
-    rectangle(p1.x, p1.y, p2.x, p2.y);
+struct Cube {
+    Point2D vertices[8];
+};
+
+void drawCube(Cube cube) {
+    line(cube.vertices[0].x, cube.vertices[0].y, cube.vertices[1].x, cube.vertices[1].y);
+    line(cube.vertices[1].x, cube.vertices[1].y, cube.vertices[2].x, cube.vertices[2].y);
+    line(cube.vertices[2].x, cube.vertices[2].y, cube.vertices[3].x, cube.vertices[3].y);
+    line(cube.vertices[3].x, cube.vertices[3].y, cube.vertices[0].x, cube.vertices[0].y);
 }
 
-void scaleRectangle(Point &p1, Point &p2, float scaleX, float scaleY) {
-    p1.x = round(p1.x * scaleX);
-    p1.y = round(p1.y * scaleY);
-    p2.x = round(p2.x * scaleX);
-    p2.y = round(p2.y * scaleY);
+void scaleCube(Cube &cube, float scaleX, float scaleY) {
+    for (int i = 0; i < 4; ++i) {
+        cube.vertices[i].x = round(cube.vertices[i].x * scaleX);
+        cube.vertices[i].y = round(cube.vertices[i].y * scaleY);
+    }
 }
 
-void translateRectangle(Point &p1, Point &p2, int dx, int dy) {
-    p1.x += dx;
-    p1.y += dy;
-    p2.x += dx;
-    p2.y += dy;
-}
-
-void rotateRectangle(Point &p1, Point &p2, float angle) {
-    float radianAngle = angle * (M_PI / 180.0);
-    int centerX = (p1.x + p2.x) / 2;
-    int centerY = (p1.y + p2.y) / 2;
-
-    int tempX1 = p1.x - centerX;
-    int tempY1 = p1.y - centerY;
-
-    int tempX2 = p2.x - centerX;
-    int tempY2 = p2.y - centerY;
-
-    p1.x = round(tempX1 * cos(radianAngle) - tempY1 * sin(radianAngle)) + centerX;
-    p1.y = round(tempX1 * sin(radianAngle) + tempY1 * cos(radianAngle)) + centerY;
-
-    p2.x = round(tempX2 * cos(radianAngle) - tempY2 * sin(radianAngle)) + centerX;
-    p2.y = round(tempX2 * sin(radianAngle) + tempY2 * cos(radianAngle)) + centerY;
+void translateCube(Cube &cube, int dx, int dy) {
+    for (int i = 0; i < 4; ++i) {
+        cube.vertices[i].x += dx;
+        cube.vertices[i].y += dy;
+    }
 }
 
 int main() {
     int gd = DETECT, gm;
     initgraph(&gd, &gm, NULL);
 
-    Point p1 = {100, 100};
-    Point p2 = {200, 200};
+    Cube cube;
+    cube.vertices[0] = {50, 50};
+    cube.vertices[1] = {150, 50};
+    cube.vertices[2] = {150, 150};
+    cube.vertices[3] = {50, 150};
+    
 
-    // Original rectangle
-    drawRectangle(p1, p2);
+    // Original cube
+    drawCube(cube);
     delay(1000);
 
     // Scaling
     cleardevice();
-    scaleRectangle(p1, p2, 1.5, 0.5);
-    drawRectangle(p1, p2);
+    scaleCube(cube, 1.5, 0.5);
+    drawCube(cube);
     delay(1000);
 
     // Translation
     cleardevice();
-    translateRectangle(p1, p2, 50, 30);
-    drawRectangle(p1, p2);
-    delay(1000);
-
-    // Rotation
-    cleardevice();
-    rotateRectangle(p1, p2, 45);
-    drawRectangle(p1, p2);
+    translateCube(cube, 50, 30);
+    drawCube(cube);
     delay(1000);
 
     closegraph();
