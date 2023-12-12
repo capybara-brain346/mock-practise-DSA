@@ -1,59 +1,62 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <string>
+#include <algorithm> // For sort and find algorithms
 
-struct PersonalRecord {
-    std::string name;
-    std::string dob;
-    std::string phoneNumber;
-
-    // Constructor for easy initialization
-    PersonalRecord(const std::string& n, const std::string& d, const std::string& phone)
-        : name(n), dob(d), phoneNumber(phone) {}
+// User-defined structure for item records
+struct Item {
+    int itemId;
+    std::string itemName;
+    double itemPrice;
 };
 
-// Function to display a personal record
-void displayRecord(const PersonalRecord& record) {
-    std::cout << "Name: " << record.name << "\tDOB: " << record.dob << "\tPhone: " << record.phoneNumber << std::endl;
+// Function to display an item record
+void displayItem(const Item& item) {
+    std::cout << "Item ID: " << item.itemId << "\tItem Name: " << item.itemName << "\tItem Price: $" << item.itemPrice << "\n";
 }
 
-// Function to compare two records by name for sorting
-bool compareByName(const PersonalRecord& record1, const PersonalRecord& record2) {
-    return record1.name < record2.name;
+// Function to compare items for sorting (based on item ID)
+bool compareItems(const Item& item1, const Item& item2) {
+    return item1.itemId < item2.itemId;
 }
 
 int main() {
-    std::vector<PersonalRecord> records;
+    // Vector to store item records
+    std::vector<Item> itemVector;
 
-    // Adding some sample records
-    records.push_back({"John Doe", "1990-05-15", "123-456-7890"});
-    records.push_back({"Alice Smith", "1985-08-22", "987-654-3210"});
-    records.push_back({"Bob Johnson", "1978-12-10", "555-123-4567"});
+    // Adding some sample item records to the vector
+    itemVector.push_back({101, "Laptop", 899.99});
+    itemVector.push_back({203, "Smartphone", 499.99});
+    itemVector.push_back({152, "Headphones", 79.99});
+    itemVector.push_back({305, "Tablet", 299.99});
+    itemVector.push_back({124, "Camera", 599.99});
 
-    // Sorting records by name
-    std::sort(records.begin(), records.end(), compareByName);
-
-    // Displaying sorted records
-    std::cout << "Sorted Records:\n";
-    for (const auto& record : records) {
-        displayRecord(record);
+    // Displaying the unsorted item records
+    std::cout << "Unsorted Item Records:\n";
+    for (const auto& item : itemVector) {
+        displayItem(item);
     }
 
-    // Searching for a record by name
-    std::string searchName;
-    std::cout << "\nEnter a name to search: ";
-    std::getline(std::cin, searchName);
+    // Sorting item records based on item ID using sort algorithm
+    std::sort(itemVector.begin(), itemVector.end(), compareItems);
 
-    auto it = std::find_if(records.begin(), records.end(), [searchName](const PersonalRecord& record) {
-        return record.name == searchName;
-    });
+    // Displaying the sorted item records
+    std::cout << "\nSorted Item Records (based on Item ID):\n";
+    for (const auto& item : itemVector) {
+        displayItem(item);
+    }
 
-    if (it != records.end()) {
-        std::cout << "Record found:\n";
-        displayRecord(*it);
+    // Searching for an item based on item ID using find algorithm
+    int searchItemId;
+    std::cout << "\nEnter Item ID to search: ";
+    std::cin >> searchItemId;
+
+    auto foundItem = std::find(itemVector.begin(), itemVector.end(), Item{searchItemId, "", 0});
+
+    if (foundItem != itemVector.end()) {
+        std::cout << "Item found!\n";
+        displayItem(*foundItem);
     } else {
-        std::cout << "Record not found.\n";
+        std::cout << "Item not found.\n";
     }
 
     return 0;
