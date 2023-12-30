@@ -8,7 +8,7 @@ class Stack{
     char stack[SIZE];
 
     public:
-    Stack(): top(-1) {}
+    Stack(): top(-1) {};
     void push(char x);
     char pop();
     bool isFull();
@@ -65,6 +65,8 @@ int main(){
     }
     if (s.isEmpty()){
         printf("Valid!");
-    } else{printf("Invalid Expression!");}
-
+    } else{
+        printf("Invalid Expression!");
+    }
+    return 0;
 }
