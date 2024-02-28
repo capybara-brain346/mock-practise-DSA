@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "ExpandedNodes": [
     "",
@@ -6,4 +7,14 @@
   ],
   "SelectedNode": "\\DSL\\linked-list.cpp",
   "PreviewInSolutionExplorer": false
+=======
+{
+  "ExpandedNodes": [
+    "",
+    "\\DSL",
+    "\\OOP"
+  ],
+  "SelectedNode": "\\DSL\\linked-list.cpp",
+  "PreviewInSolutionExplorer": false
+>>>>>>> c86646d2c6758a6b5b0d25bd4931f28d026307cf
 }
