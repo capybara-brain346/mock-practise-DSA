@@ -11,14 +11,12 @@ struct Node {
 
 class Tree {
 public:
-  Node* root = nullptr;
-
-  Tree() {}
+  Node* root = NULL;
 
   void createTree() {
     root = new Node;
     cout << "Enter Name of Book\n";
-    getline(cin, root->label); 
+    cin >> root->label; 
     cout << "Enter Number of Chapters in Book\n";
     cin >> root->childCount;
     cin.ignore(); 
