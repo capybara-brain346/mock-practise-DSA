@@ -55,9 +55,9 @@ public:
       for (int i = 0; i < node->childCount; ++i) {
         cout << "\n" << "Chapter Name : " << node->children[i]->label <<"\n|\n|"<< endl;
         for (int j = 0; j < node->children[i]->childCount; ++j) {
-          cout << "   " << "Section Name : " << node->children[i]->children[j]->label <<"\n   |\n   |"<< endl;
+          cout << "---" << "Section Name : " << node->children[i]->children[j]->label <<"\n   |\n   |"<< endl;
           for (int k = 0; k < node->children[i]->children[j]->childCount; ++k) {
-            cout << "       " << "SubSection Name : " << node->children[i]->children[j]->children[k]->label <<"\n       |\n       |"<< endl;
+            cout << "   ----" << "SubSection Name : " << node->children[i]->children[j]->children[k]->label <<"\n       |\n       |"<< endl;
           }
         }
       }
