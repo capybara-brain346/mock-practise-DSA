@@ -50,16 +50,14 @@ public:
     if (node != nullptr) {
       cout << "\n\nYour Book -------->\n\n";
       cout << "Book Title : " << node->label << endl;
-      cout << "Number of chapters: " << node->childCount << endl;
+      cout << "\nNumber of chapters: " << node->childCount << endl;
 
       for (int i = 0; i < node->childCount; ++i) {
-        cout << "\n" << i + 1 << ". Chapter Name : " << node->children[i]->label << endl;
-        cout << "Sections:\n";
+        cout << "\n" << "Chapter Name : " << node->children[i]->label <<"\n|\n|"<< endl;
         for (int j = 0; j < node->children[i]->childCount; ++j) {
-          cout << "\n   " << j + 1 << ". Section Name : " << node->children[i]->children[j]->label << endl;
-          cout << "   SubSections:\n";
+          cout << "   " << "Section Name : " << node->children[i]->children[j]->label <<"\n   |\n   |"<< endl;
           for (int k = 0; k < node->children[i]->children[j]->childCount; ++k) {
-            cout << "       " << k + 1 << ". SubSection Name : " << node->children[i]->children[j]->children[k]->label << endl;
+            cout << "       " << "SubSection Name : " << node->children[i]->children[j]->children[k]->label <<"\n       |\n       |"<< endl;
           }
         }
       }
